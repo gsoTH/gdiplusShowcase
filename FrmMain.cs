@@ -17,5 +17,6 @@ namespace gdiplusShowcase
             InitializeComponent();
         }
 
+
     }
 }
