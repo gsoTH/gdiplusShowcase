@@ -39,6 +39,7 @@ namespace gdiplusShowcase
             this.Name = "FrmErsteSchritte";
             this.Text = "Erste Schritte";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FrmErsteSchritte_Paint);
+            this.Resize += new System.EventHandler(this.FrmErsteSchritte_Resize);
             this.ResumeLayout(false);
 
         }
