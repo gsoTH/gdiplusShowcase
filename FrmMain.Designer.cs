@@ -50,6 +50,7 @@ namespace gdiplusShowcase
             this.btnShowForm.TabIndex = 1;
             this.btnShowForm.Text = "Anzeigen!";
             this.btnShowForm.UseVisualStyleBackColor = true;
+            this.btnShowForm.Click += new System.EventHandler(this.btnShowForm_Click);
             // 
             // FrmMain
             // 
