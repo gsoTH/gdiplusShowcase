@@ -1,7 +1,7 @@
 ﻿
 namespace gdiplusShowcase
 {
-    partial class FrmErsteSchritte
+    partial class ErsteSchritte
     {
         /// <summary>
         /// Required designer variable.
