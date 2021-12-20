@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-//using System.Timers;
 
 namespace gdiplusShowcase
 {
     public partial class SnowingSquares : Form
     {
-        static int limitRectangles = 10;
+        static int limitRectangles = 75;
 
 
         Rectangle[] rectangles  = new Rectangle[limitRectangles];
@@ -34,7 +27,7 @@ namespace gdiplusShowcase
         /// </summary>
         private void SetTimer()
         {
-            // Create a timer with interval in ms
+            // Timer mit Intervall in ms erstellen
             timer = new Timer();
             timer.Interval = 50;
 
@@ -48,12 +41,15 @@ namespace gdiplusShowcase
         /// </summary>
         private void TickEvent(Object source, EventArgs e)
         {
+            int faktorGeschwindigkeit = 15;
+
             for (int i = 0; i < rectangles.Length; i++)
             {
-                rectangles[i].Y = rectangles[i].Y + rectangles[i].Height/15;
+                rectangles[i].Y = rectangles[i].Y + rectangles[i].Height / faktorGeschwindigkeit;
 
                 if (rectangles[i].Top > this.ClientSize.Height)
                 {
+                    rectangles[i].X = rnd.Next(0, this.ClientSize.Width);
                     rectangles[i].Y = 0 - rectangles[i].Height;
                 }
             }
@@ -63,10 +59,13 @@ namespace gdiplusShowcase
 
         private void CreateRectangles()
         {
+            int faktorMin = 70;
+            int faktorMax = 20;
+
             for (int i = 0; i < rectangles.Length; i++)
             {
                 // Zufällige Größe in Relation zur Clientsize
-                int rectWidth = rnd.Next(this.ClientSize.Width / 70, this.ClientSize.Width /20);
+                int rectWidth = rnd.Next(this.ClientSize.Width / faktorMin, this.ClientSize.Width / faktorMax);
 
                 // Zufälle Anordung 
                 Rectangle rect = new Rectangle( rnd.Next(0, this.ClientSize.Width), 
@@ -74,7 +73,6 @@ namespace gdiplusShowcase
                                                 rectWidth, 
                                                 rectWidth);
                 rectangles[i] = rect;
-                //rectangles.Add(rect);
             }
         }
 
@@ -92,7 +90,7 @@ namespace gdiplusShowcase
             }
            
             //TODO Hintergrund darstellen
-            //TODO jpg mit Schneeflockenform statt Rechteck.
+            //TODO jpg mit Schneeflockenform statt Draw.
         }
     }
 }
