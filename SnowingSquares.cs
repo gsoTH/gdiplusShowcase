@@ -21,6 +21,8 @@ namespace gdiplusShowcase
         Random rnd = new Random();
         public SnowingSquares()
         {
+            DoubleBuffered = true;
+
             InitializeComponent();
             CreateRectangles();
             SetTimer();
