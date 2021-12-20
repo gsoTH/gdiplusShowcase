@@ -80,10 +80,10 @@ namespace gdiplusShowcase
             int w = this.ClientSize.Width;
             int h = this.ClientSize.Height;
 
-            Pen pen = new Pen(Color.Black, 2);
+            Brush brush = new SolidBrush(Color.White);
             foreach(Rectangle rect in rectangles)
             {
-                g.DrawEllipse(pen, rect);
+                g.FillEllipse(brush, rect);
             }
            
             //TODO Hintergrund darstellen
