@@ -7,19 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Timers;
+//using System.Timers;
 
 namespace gdiplusShowcase
 {
     public partial class SnowingSquares : Form
     {
-        int rectangleLimit = 10;
-        List<Rectangle> rectangles  = new List<Rectangle>();
-        static System.Timers.Timer timer;
+        static int limitRectangles = 10;
+
+
+        Rectangle[] rectangles  = new Rectangle[limitRectangles];
+        static Timer timer;
         Random rnd = new Random();
         public SnowingSquares()
         {
             InitializeComponent();
+            CreateRectangles();
             SetTimer();
 
         }
@@ -27,38 +30,46 @@ namespace gdiplusShowcase
         /// <summary>
         /// Erzeugt einen Timer und stellt das zugehörige Ereignis her.
         /// </summary>
-        /// <see cref="https://docs.microsoft.com/de-de/dotnet/api/system.timers.timer?view=net-6.0"/>
         private void SetTimer()
         {
             // Create a timer with interval in ms
-            timer = new System.Timers.Timer(500);
+            timer = new Timer();
+            timer.Interval = 50;
 
-            // Hook up the Elapsed event for the timer. 
-            timer.Elapsed += OnTimedEvent;
-            timer.AutoReset = true;
-            timer.Enabled = true;
+            //Stellt einen Verweis zur Ereignisbehandlungsmethode her.
+            timer.Tick += TickEvent;
+            timer.Start();
         }
 
         /// <summary>
         /// Wird immer aufgerufen, sobald der Timer-Interval abgelaufen ist.
         /// </summary>
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        private void TickEvent(Object source, EventArgs e)
         {
-            CreateRectangles();
+            for (int i = 0; i < rectangles.Length; i++)
+            {
+                rectangles[i].Y = rectangles[i].Y + rectangles[i].Height/15;
+            }
+
+            //TODO Wenn Rechteck außerhalb der Form --> wieder hochsetzen.
+
             Refresh();
         }
 
         private void CreateRectangles()
         {
-            if(rectangles.Count < rectangleLimit)
+            for (int i = 0; i < rectangles.Length; i++)
             {
-                int rectWidth = rnd.Next(10, 50);
+                // Zufällige Größe in Relation zur Clientsize
+                int rectWidth = rnd.Next(this.ClientSize.Width / 70, this.ClientSize.Width /20);
+
+                // Zufälle Anordung 
                 Rectangle rect = new Rectangle( rnd.Next(0, this.ClientSize.Width), 
                                                 rnd.Next(0, this.ClientSize.Height), 
                                                 rectWidth, 
                                                 rectWidth);
-
-                rectangles.Add(rect);
+                rectangles[i] = rect;
+                //rectangles.Add(rect);
             }
         }
 
@@ -69,12 +80,14 @@ namespace gdiplusShowcase
             int w = this.ClientSize.Width;
             int h = this.ClientSize.Height;
 
-            Pen pen = new Pen(Color.AliceBlue, 2);
+            Pen pen = new Pen(Color.Black, 2);
             foreach(Rectangle rect in rectangles)
             {
-                g.DrawRectangle(pen, rect);
+                g.DrawEllipse(pen, rect);
             }
            
+            //TODO Hintergrund darstellen
+            //TODO jpg mit Schneeflockenform statt Rechteck.
         }
     }
 }
