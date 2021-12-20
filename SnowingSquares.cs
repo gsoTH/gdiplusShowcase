@@ -49,9 +49,12 @@ namespace gdiplusShowcase
             for (int i = 0; i < rectangles.Length; i++)
             {
                 rectangles[i].Y = rectangles[i].Y + rectangles[i].Height/15;
-            }
 
-            //TODO Wenn Rechteck außerhalb der Form --> wieder hochsetzen.
+                if (rectangles[i].Top > this.ClientSize.Height)
+                {
+                    rectangles[i].Y = 0 - rectangles[i].Height;
+                }
+            }
 
             Refresh();
         }
