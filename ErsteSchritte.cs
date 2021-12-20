@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace gdiplusShowcase
 {
-    public partial class FrmErsteSchritte : Form
+    public partial class ErsteSchritte : Form
     {
-        public FrmErsteSchritte()
+        public ErsteSchritte()
         {
            InitializeComponent();
            ResizeRedraw = true; //Größenänderung verursacht Neuzeichnen der gesamten Form.
