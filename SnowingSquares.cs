@@ -82,6 +82,8 @@ namespace gdiplusShowcase
             Graphics g = e.Graphics;
             int w = this.ClientSize.Width;
             int h = this.ClientSize.Height;
+            
+            Paint_Background(g);
 
             Brush brush = new SolidBrush(Color.White);
             foreach(Rectangle rect in rectangles)
@@ -89,8 +91,63 @@ namespace gdiplusShowcase
                 g.FillEllipse(brush, rect);
             }
            
-            //TODO Hintergrund darstellen
+            
             //TODO jpg mit Schneeflockenform statt Draw.
+        }
+
+        private void Paint_Background(Graphics g)
+        {
+            int w = this.ClientSize.Width;
+            int h = this.ClientSize.Height;
+
+            int faktorX = w/40;
+            int faktorY = h/20;
+            
+            //Zeichenmittel
+            Brush brMauern = new SolidBrush(Color.FromArgb(116, 113, 109));
+            Brush brGlass = new SolidBrush(Color.FromArgb(100, 98, 92));
+            Brush brHolz = new SolidBrush(Color.FromArgb(126, 69, 43));
+            Brush brBoden = new SolidBrush(Color.FromArgb(188,145,129));
+            
+
+            Rectangle mauern = new Rectangle(faktorX, faktorY * 6, w-faktorX * 2,  faktorY * 12);
+            g.FillRectangle(brMauern, mauern);
+
+            Rectangle glassGanzLinks = new Rectangle(mauern.X + faktorX, mauern.Y + faktorY, faktorX * 3, mauern.Height - faktorY);
+            g.FillRectangle(brGlass, glassGanzLinks);
+
+            Rectangle holz = new Rectangle(glassGanzLinks.Right, glassGanzLinks.Top, faktorX * 16, glassGanzLinks.Height);
+            g.FillRectangle(brHolz, holz);
+
+            Rectangle glassRechtsNebenHolz= new Rectangle(holz.Right, glassGanzLinks.Top, faktorX * 3, glassGanzLinks.Height);
+            g.FillRectangle(brGlass, glassRechtsNebenHolz);
+            
+            Rectangle glassUberTuer= new Rectangle(glassRechtsNebenHolz.Right + faktorX, glassGanzLinks.Top, faktorX * 6, glassGanzLinks.Height);
+            g.FillRectangle(brGlass, glassUberTuer);
+            
+            Rectangle glassGanzRechts= new Rectangle(glassUberTuer.Right + faktorX, glassGanzLinks.Top, glassUberTuer.Width, glassGanzLinks.Height);
+            g.FillRectangle(brGlass, glassGanzRechts);
+
+            Rectangle Tuer = new Rectangle(glassUberTuer.X, glassUberTuer.Bottom - faktorY * 3, glassUberTuer.Width, faktorY * 3);
+            g.FillRectangle(brHolz, Tuer);
+
+
+            int faktorFensterX = holz.Width / 13; //6 fenster
+            int faktorFensterY = holz.Height / 7;
+
+            for (int i = 1; i < 7; i+=3)
+            {
+                for (int j = 1; j < 13; j+= 3)
+                {
+                    Rectangle fenster = new Rectangle(holz.X + faktorFensterX * j, holz.Y + faktorFensterY * i, faktorFensterX*2, faktorFensterY*2);
+                    g.FillRectangle(brGlass,fenster);
+
+                }
+            }
+
+            Rectangle boden = new Rectangle(0,mauern.Bottom, w, h-mauern.Bottom);
+            g.FillRectangle(brBoden, boden);
+
         }
     }
 }
