@@ -52,6 +52,8 @@ namespace gdiplusShowcase
             {
                 timer.Stop();
                 MessageBox.Show("Timer gestoppt.");
+                //Rechteck zurücksetzen, damit es nochmal angezeigt werden kann.
+                rect.X = 0;
             }
         }
 
