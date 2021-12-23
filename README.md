@@ -18,6 +18,13 @@ Jede Form hat ein eigenes Thema. Es sind immer nur die .cs Dateien (nicht Design
 - Kooridnaten der Maus abfragen
 - Darstellung von Rectangles an gleicher Stelle
 
+### SimpleTimer
+Ein einfaches Beispiel für Animation durch einen Timer.
+- Timer erzeugen
+- Einstellungen vornehmen (Interval)
+- Tick-Ereignis manuell hinzufügen
+- Im Tick-Ereignis ein Rechteck-Objekt manipulieren
+
 ## Fortgeschritten
 
 ### SnowingSquares
