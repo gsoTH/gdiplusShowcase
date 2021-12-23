@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace gdiplusShowcase
@@ -83,7 +84,7 @@ namespace gdiplusShowcase
             int w = this.ClientSize.Width;
             int h = this.ClientSize.Height;
             
-            Paint_Background(g);
+            //PaintGSO(g);
 
             Brush brush = new SolidBrush(Color.White);
             foreach(Rectangle rect in rectangles)
@@ -91,11 +92,102 @@ namespace gdiplusShowcase
                 g.FillEllipse(brush, rect);
             }
            
-            
+            PaintWindow(g);
             //TODO jpg mit Schneeflockenform statt Draw.
+            Brush brText = new SolidBrush(Color.Red);
+            RectangleF text = new RectangleF(0.0f, 0.0f, Convert.ToSingle(w / 2), Convert.ToSingle(h / 3));
+           
+            g.DrawString("Frohe Weihnachten!", this.Font,brText, text);
         }
 
-        private void Paint_Background(Graphics g)
+        private void PaintWindow(Graphics g)
+        {
+            int w = this.ClientSize.Width;
+            int h = this.ClientSize.Height;
+
+            //Zeichenmittel
+            Pen pFensterrahmen = new Pen(Color.SaddleBrown, 12);
+            Brush brMauernHell = new SolidBrush(Color.FromArgb(116, 113, 109));
+            Brush brMauernDunkel = new SolidBrush(Color.FromArgb(100, 98, 92));
+            Brush brHolz = new SolidBrush(Color.FromArgb(126, 69, 43));
+            Brush brVorhang = new SolidBrush(Color.DarkGreen);
+            Pen pVorhangRand = new Pen(Color.Gold, 2);
+
+
+            //Rechtecke hinter dem Vorhang
+            Rectangle linkeWand = new Rectangle(0, 0, w/5, h);
+            Rectangle rechteWand = new Rectangle(w - linkeWand.Width, 0, linkeWand.Width, h);
+
+            g.FillRectangle(brMauernHell, linkeWand);
+            g.FillRectangle(brMauernHell, rechteWand);
+
+
+            //Fensterbank
+            int faktor = linkeWand.Width / 6;
+            Point[] fensterbank =
+            {
+                new Point(faktor, h - faktor*2),//links, unten, unterkante
+                new Point(faktor, h - faktor), //links, unten, oberkante
+                new Point(w - faktor, h - faktor), //rechts, unten, oberkante
+                new Point(w - faktor, h - faktor*2),//rechts, unten, unterkante
+                new Point(rechteWand.Left, h - faktor*3),
+                new Point(linkeWand.Right, h - faktor*3)
+            };
+            //Darstellung ganz unten
+            
+
+
+            //Fenster
+            Rectangle fenster = new Rectangle(linkeWand.Right, 0, w - linkeWand.Width - rechteWand.Width, fensterbank[fensterbank.Length-1].Y);
+            g.DrawRectangle(pFensterrahmen, fenster);
+            fenster.Width = fenster.Width/2;
+            g.DrawRectangle(pFensterrahmen, fenster);
+            fenster.Height = fenster.Height/2;
+            fenster.Width = fenster.Width*2;
+            g.DrawRectangle(pFensterrahmen, fenster);
+
+            g.DrawArc(pFensterrahmen, fenster, 270, 90); //Rundung oben rechts. 0° = 3 Uhr.
+            g.DrawArc(pFensterrahmen, fenster, 180, 90);
+
+
+
+            Rectangle untereWand = new Rectangle(fensterbank[0].X + 10, fensterbank[0].Y, w - ((fensterbank[0].X + 10) *2), h);
+            g.FillRectangle(brMauernDunkel, untereWand);
+
+            
+            //Vorhänge            
+            Point[] vorhangLinks =
+            {
+                new Point(-1, -1),
+                new Point(w/5*2, -1), //Oben, relativ mittig
+                new Point(linkeWand.Width/3*4, fenster.Bottom),
+                new Point(linkeWand.Width/2, fensterbank[fensterbank.Length-1].Y),
+                new Point(linkeWand.Width/2, h+1),
+                new Point(-1, h+1)
+            };
+            
+            Point[] vorhangRechts =
+            {
+                new Point(w+1, -1),
+                new Point(w- vorhangLinks[1].X, -1), 
+                new Point(w-linkeWand.Width/3*4, fenster.Bottom),
+                new Point(w-linkeWand.Width/2, fensterbank[fensterbank.Length-1].Y),
+                new Point(w-linkeWand.Width/2, h+1),
+                new Point(w+1, h+1)
+            };
+
+            g.FillPolygon(brVorhang, vorhangLinks);
+            g.DrawPolygon(pVorhangRand, vorhangLinks);
+            g.FillPolygon(brVorhang, vorhangRechts);
+            g.DrawPolygon(pVorhangRand, vorhangRechts);
+            
+            //Fensterbank zeichen, damit sie vor dem Rest dargestellt wird
+            g.FillPolygon(brHolz, fensterbank);
+
+
+        }
+
+        private void PaintGSO(Graphics g)
         {
             int w = this.ClientSize.Width;
             int h = this.ClientSize.Height;

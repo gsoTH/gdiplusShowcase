@@ -32,13 +32,14 @@
             // 
             // SnowingSquares
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1486, 960);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ClientSize = new System.Drawing.Size(896, 650);
+            this.Font = new System.Drawing.Font("Brush Script MT", 68F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.Margin = new System.Windows.Forms.Padding(16);
             this.Name = "SnowingSquares";
-            this.Text = "FlyingSquares";
+            this.Text = "SnowingSquares";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SnowingSquares_Paint);
             this.ResumeLayout(false);
 
