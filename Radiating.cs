@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Timers;
 
 namespace gdiplusShowcase
 {
@@ -15,7 +8,7 @@ namespace gdiplusShowcase
     {
         // System.Windows.Forms besitzt einen eigenen Timer, daher 
         // muss die gewünschte Klasse hier explizit genannt werden.
-        System.Timers.Timer animationTimer = new System.Timers.Timer();
+        System.Timers.Timer animationTimer;
 
         public Radiating()
         {
@@ -25,6 +18,17 @@ namespace gdiplusShowcase
             this.MaximizeBox = false;
             this.MinimumSize = this.Size;
             this.MaximumSize = this.Size;
+
+            animationTimer = new System.Timers.Timer();
+            animationTimer.Interval = 500;
+            animationTimer.Elapsed += TimerElapsedEvent;
+            animationTimer.Start();
+
+        }
+
+        private void TimerElapsedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            Refresh();
         }
 
         private void Radiating_Paint(object sender, PaintEventArgs e)
