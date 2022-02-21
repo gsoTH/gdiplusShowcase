@@ -25,7 +25,7 @@ Ein einfaches Beispiel für Animation durch einen Timer.
 - Tick-Ereignis manuell hinzufügen
 - Im Tick-Ereignis ein Rechteck-Objekt manipulieren
 
-## Fortgeschritten
+## Kunst Oder So
 
 ### SnowingSquares
 ![SnowingSquares.cs](./Screenshots/SnowingSquares.png)
