@@ -7,6 +7,8 @@ Jede Form hat ein eigenes Thema. Es sind immer nur die .cs Dateien (nicht Design
 
 ### Erste Schritte
 ![ErsteSchritte.cs](./Screenshots/ErsteSchritte.png)
+
+[Link zum Code](./KunstOderSo/ErsteSchritte.cs)
 - Paint Ereignis
 - Point- und Rectangle-Objekte
 - Neuzeichnen bei Größenänderung (ResizeRedraw)
@@ -14,6 +16,8 @@ Jede Form hat ein eigenes Thema. Es sind immer nur die .cs Dateien (nicht Design
 
 ### ClickToRectangle
 ![ClickToRectangle.cs](./Screenshots/ClickToRectangle.png)
+
+[Link zum Code](./Basics/ClickToRectangle.cs)
 - MouseClick()
 - Kooridnaten der Maus abfragen
 - Darstellung von Rectangles an gleicher Stelle
